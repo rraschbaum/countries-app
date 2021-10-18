@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import { Route } from 'react-router';
 
-function App() {
+import Header from './components/Header';
+import Countries from './pages/Countries';
+
+const App = () => {
+
+  const [countriesData, setCountriesData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        'https://restcountries.com/v2/all'
+      );
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      const data = await response.json()
+      setCountriesData(data);
+    } catch (error) {
+      console.log('error!');
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log(countriesData);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Route path="/" exact>
+        <Countries countriesData={countriesData} />
+      </Route>
     </div>
   );
 }
