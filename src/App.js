@@ -4,6 +4,7 @@ import { Route } from 'react-router';
 
 import Header from './components/Header';
 import Countries from './pages/Countries';
+import CountryDetails from './pages/CountryDetails';
 
 const App = () => {
 
@@ -28,13 +29,14 @@ const App = () => {
     fetchData();
   }, []);
 
-  console.log(countriesData);
-
   return (
     <div>
       <Header />
       <Route path="/" exact>
         <Countries countriesData={countriesData} />
+      </Route>
+      <Route path="/:countryId" exact>
+        <CountryDetails />
       </Route>
     </div>
   );

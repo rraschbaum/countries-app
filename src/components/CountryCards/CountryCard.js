@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const CountryCardStyled = styled.div`
   width: 300px;
@@ -20,16 +21,20 @@ const CountryCard = (props) => {
     image
   } = props.country
 
+  const link = `/${name.toLowerCase().replace(' ','-')}`;
+
   return (
-    <CountryCardStyled>
-      <img src={image} alt='placeholder'/>
-      <h2>{name}</h2>
-      <ul>
-        <li><span>Population: </span>{population}</li>
-        <li><span>Region: </span>{region}</li>
-        <li><span>Capital: </span>{capital}</li>
-      </ul>
-    </CountryCardStyled>
+    <Link to={link}>
+      <CountryCardStyled>
+        <img src={image} alt='placeholder' />
+        <h2>{name}</h2>
+        <ul>
+          <li><span>Population: </span>{population}</li>
+          <li><span>Region: </span>{region}</li>
+          <li><span>Capital: </span>{capital}</li>
+        </ul>
+      </CountryCardStyled>
+    </Link>
   );
 }
 

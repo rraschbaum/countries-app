@@ -1,8 +1,9 @@
 import React from 'react';
 
 import styled from 'styled-components';
-
 import { Container } from '../styles/style';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleTheme } from '../store/themeSlice';
 
 const NavStyled = styled.nav`
 
@@ -14,12 +15,21 @@ const NavStyled = styled.nav`
 `;
 
 const Header = (props) => {
+  const themeStatus = useSelector((state) => state.theme.darkMode);
+  const dispatch = useDispatch();
+
+  const handleToggleTheme = () => {
+    dispatch(toggleTheme());
+  }
+
+  const currentThemeText = themeStatus ? "Dark mode" : "Light mode";
+
   return (
     <NavStyled>
       <Container>
         <div className="wrapper">
           <h1>Where in the world?</h1>
-          <div>dark mode</div>
+          <button onClick={handleToggleTheme}>{currentThemeText}</button>
         </div>
       </Container>
     </NavStyled>
