@@ -12,6 +12,7 @@ const CountryCards = (props) => {
 
   const countryCards = props.countriesData.map(country => (
     <CountryCard
+      key={country.numericCode}
       country={{
         name: country.name,
         population: country.population,
